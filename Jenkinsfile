@@ -1,42 +1,53 @@
-pipeline{
+pipeline {
+
     agent any
-    tools{
+
+    tools {
         maven 'Maven'
     }
-    stages{
-        stage('build'){
-            steps{
+
+    stages {
+
+        stage('build') {
+            steps {
                 sh 'mvn --version'
-                echo "maven version success"
+                echo 'Maven version success'
+            }
+        }
+
+        stage('test') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('deploy') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('run') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+
+        stage('new') {
+            steps {
+                sh 'mvn exec:java'
             }
         }
     }
-    stage('test'){
-        steps{
-            sh 'mvn clean compile'
+
+    post {
+
+        success {
+            echo 'Java successfully run'
         }
-    }
-    stage('deploy'){
-    steps{
-        sh 'mvn test'
-       }
-    }
-    stage('run'){
-        steps{
-            sh 'mvn package'
+
+        failure {
+            echo 'Java failure'
         }
-    }
-    stage('new'){
-        steps{
-            sh 'mvn exec:java'
-        }
-    }
-}
-post{
-    success{
-        echo "java successfully run"
-    }
-    failure{
-        echo "java failure"
     }
 }
