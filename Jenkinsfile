@@ -40,4 +40,3 @@ post{
         echo "java failure"
     }
 }
-
