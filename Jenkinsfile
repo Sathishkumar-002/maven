@@ -45,6 +45,7 @@ pipeline {
                 sh 'mvn exec:java'
             }
         }
+    }
 
     post {
 
