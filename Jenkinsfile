@@ -8,6 +8,9 @@ pipeline {
     stages {
         stage('github') {
             steps {
+                git credentialsId: 'w_o', url: 'https://github.com/Sathishkumar-002/maven.git'
+            }
+        }
                 
 
     stages {
